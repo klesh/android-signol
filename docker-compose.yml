@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  app:
+    image: android-signol:0.1
+    working_dir: /app
+    command: python3.7 app.py
+    environment:
+      SIGN_KEY: 'SMOKE_TEST'  # setup authentication secret phrase here
+      KS_PASS: 'helloworld'   # setup keystore password here
+      KEY_ALIAS: 'hello'      # setup key alias here if keystore contains multiple keys
+      KEY_PASS: ''            # setup key password here if any
+      HOST: '0.0.0.0'
+      PORT: 4040
+      KS_PATH: '/app/keystore.jks'
+    volumes:
+      - '${PWD}/tests/artifacts/testkey.jks:/app/keystore.jks:ro'
+    ports:
+      - '4040:4040'
